@@ -1,7 +1,8 @@
 package my.business.data.entities;
 
-import java.util.Objects;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Deal {
     private String number;
     private String date;

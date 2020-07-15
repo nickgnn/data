@@ -1,13 +1,18 @@
 package my.business.data.logic;
 
 import my.business.data.entities.Deal;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
 
-@Component
 public class StringReader {
+    @Autowired
+    private Deal deal;
+
     public void readFile(String fileName) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
 
@@ -41,7 +46,7 @@ public class StringReader {
 
     private Deal addStringsToDeal(String s) {
         String[] split = s.split(",");
-        Deal deal = new Deal(
+        deal = new Deal(
                 split[0],
                 LocalDate.now().getDayOfMonth() + " " +
                         LocalDate.now().getMonth() + " " +
