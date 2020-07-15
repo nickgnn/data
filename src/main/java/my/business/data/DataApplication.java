@@ -9,8 +9,6 @@ import java.io.*;
 @SpringBootApplication
 public class DataApplication {
 	public static void main(String[] args) throws IOException {
-		SpringApplication.run(DataApplication.class, args);
-
-		new StringReader().readFile(args[0]);
+//		SpringApplication.run(DataApplication.class, args);
 	}
 }
