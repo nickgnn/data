@@ -27,23 +27,6 @@ public class StringReader {
         }
     }
 
-    private String[] readString(String s) throws IOException {
-        String[] split = s.split(",");
-        String[] deal = new String[5];
-
-        deal[0] = "number : " + split[0];
-        deal[1] = "time : " + split[1];
-        deal[2] = "price : " + split[5];
-        deal[3] = "quantity : " + split[7];
-
-        switch (split[15]) {
-            case "B": deal[4] = "direction : " + split[15] + "UY";break;
-            case "S": deal[4] = "direction : " + split[15] + "ELL";break;
-        }
-
-        return deal;
-    }
-
     private Deal addStringsToDeal(String s) {
         String[] split = s.split(",");
         deal = new Deal(
@@ -74,14 +57,6 @@ public class StringReader {
         System.out.println("price : " + deal.getPrice());
         System.out.println("quantity : " + deal.getQuantity());
         System.out.println("direction : " + deal.getDirection());
-
-        System.out.println("\n=====================================\n");
-    }
-
-    private void printDeal(String[] strings) {
-        for (int i = 0; i < strings.length; i++) {
-            System.out.println(strings[i]);
-        }
 
         System.out.println("\n=====================================\n");
     }
