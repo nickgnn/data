@@ -1,5 +1,6 @@
 package my.business.data.logic;
 
+import com.google.gson.Gson;
 import my.business.data.entities.Deal;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -8,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class StringReader {
     @Autowired
@@ -16,29 +18,80 @@ public class StringReader {
     public void readFile(String fileName) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
 
-        while (reader.ready()) {
-            printDeal(addStringsToDeal(reader.readLine()));
+        ArrayList<Deal> arrayListWithDeals = getArrayListWithDeals(reader);
 
-            try {
-                Thread.sleep(997);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        String json = new Gson().toJson(arrayListWithDeals);
+
+        int length = json.length();
+
+
+    }
+
+    private ArrayList<Deal> readJsonFromFile(String s) {
+        return null;
+    }
+
+    private void writeJsonToFile(String s) {
+
+    }
+
+    private ArrayList<Deal> getArrayListWithDeals(BufferedReader reader) throws IOException {
+        ArrayList<Deal> deals = new ArrayList<>();
+
+        while (reader.ready()) {
+            deals.add(addStringsToDeal(reader.readLine()));
         }
+
+        return deals;
+    }
+
+    private ArrayList<Deal> addDealToArray(Deal deal) {
+        ArrayList<Deal> deals = new ArrayList<>();
+
+        deals.add(deal);
+
+        return deals;
     }
 
     private Deal addStringsToDeal(String s) {
         String[] split = s.split(",");
-        deal = new Deal(
-                split[0],
-                LocalDate.now().getDayOfMonth() + " " +
-                        LocalDate.now().getMonth() + " " +
-                        LocalDate.now().getYear(),
-                split[1],
-                split[5],
-                split[7],
-                split[15]
-        );
+
+        try {
+            if (Long.valueOf(deal.getNumber()) < 26109106377399l) {
+                deal = new Deal(
+                        split[0],
+                        LocalDate.now().getDayOfMonth() - 1 + " " +
+                                LocalDate.now().getMonth() + " " +
+                                LocalDate.now().getYear(),
+                        split[1],
+                        split[5],
+                        split[7],
+                        split[15]
+                );
+            } else {
+                deal = new Deal(
+                        split[0],
+                        LocalDate.now().getDayOfMonth() + " " +
+                                LocalDate.now().getMonth() + " " +
+                                LocalDate.now().getYear(),
+                        split[1],
+                        split[5],
+                        split[7],
+                        split[15]
+                );
+            }
+        } catch (NullPointerException e) {
+            deal = new Deal(
+                    split[0],
+                    LocalDate.now().getDayOfMonth() - 1 + " " +
+                            LocalDate.now().getMonth() + " " +
+                            LocalDate.now().getYear(),
+                    split[1],
+                    split[5],
+                    split[7],
+                    split[15]
+            );
+        }
 
         switch (deal.getDirection()) {
             case "B": deal.setDirection("BUY");break;
