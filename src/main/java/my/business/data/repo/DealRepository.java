@@ -1,4 +1,7 @@
 package my.business.data.repo;
 
-public class DealRepository {
+import my.business.data.entities.Deal;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DealRepository extends JpaRepository<Deal, String> {
 }
