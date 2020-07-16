@@ -2,7 +2,6 @@ package my.business.data.entities;
 
 import org.springframework.stereotype.Component;
 
-@Component
 public class Deal {
     private String number;
     private String date;

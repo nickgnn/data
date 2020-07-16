@@ -9,9 +9,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class StringReader {
-    @Autowired
-    private Deal deal;
-
     public ArrayList<Deal> readFile(String fileName) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
 
@@ -48,8 +45,11 @@ public class StringReader {
     private Deal addStringsToDeal(String s) {
         String[] split = s.split(",");
 
-        try {
-            if (Long.valueOf(deal.getNumber()) < 26113401324316L) {
+        Deal deal = new Deal();
+        deal.setNumber(split[0]);
+
+
+        if (Long.valueOf(deal.getNumber()) < 26113401324316L) {
                 deal = new Deal(
                         split[0],
                         LocalDate.now().getDayOfMonth() - 1 + " " +
@@ -60,7 +60,7 @@ public class StringReader {
                         split[7],
                         split[15]
                 );
-            } else {
+        } else {
                 deal = new Deal(
                         split[0],
                         LocalDate.now().getDayOfMonth() + " " +
@@ -71,18 +71,6 @@ public class StringReader {
                         split[7],
                         split[15]
                 );
-            }
-        } catch (NullPointerException e) {
-            deal = new Deal(
-                    split[0],
-                    LocalDate.now().getDayOfMonth() - 1 + " " +
-                            LocalDate.now().getMonth() + " " +
-                            LocalDate.now().getYear(),
-                    split[1],
-                    split[5],
-                    split[7],
-                    split[15]
-            );
         }
 
         switch (deal.getDirection()) {
