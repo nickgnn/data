@@ -1,7 +1,5 @@
 package my.business.data.entities;
 
-import java.util.Objects;
-
 public class Deal {
     private String number;
     private String date;
