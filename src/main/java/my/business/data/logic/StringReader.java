@@ -1,6 +1,8 @@
 package my.business.data.logic;
 
 import my.business.data.entities.Deal;
+import my.business.data.repo.DealRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -8,6 +10,9 @@ import java.time.LocalDate;
 
 @Component
 public class StringReader {
+    @Autowired
+    DealRepository dealRepository;
+
     public void readFile(String fileName) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
 
