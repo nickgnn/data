@@ -49,7 +49,7 @@ public class StringReader {
         String[] split = s.split(",");
 
         try {
-            if (Long.valueOf(deal.getNumber()) < 26109106377365l) {
+            if (Long.valueOf(deal.getNumber()) < 26113401324316L) {
                 deal = new Deal(
                         split[0],
                         LocalDate.now().getDayOfMonth() - 1 + " " +
