@@ -1,11 +1,31 @@
 package my.business.data.entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "deals")
 public class Deal {
+
+    @Id
+    @Column(name = "number")
     private String number;
+
+    @Column(name = "date")
     private String date;
+
+    @Column(name = "time")
     private String time;
+
+    @Column(name = "price")
     private String price;
+
+    @Column(name = "quantity")
     private String quantity;
+
+    @Column(name = "direction")
     private String direction;
 
     public Deal() {
