@@ -1,30 +1,58 @@
 package my.business.data.logic;
 
+import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
 import my.business.data.entities.Deal;
-import my.business.data.repo.DealRepository;
+import my.business.data.service.DealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @Component
 public class StringReader {
     @Autowired
-    DealRepository dealRepository;
+    DealService dealService;
 
-    public void readFile(String fileName) throws IOException {
+    public void writeDealsToDB(ArrayList<LinkedTreeMap> maps) {
+        ArrayList<Deal> deals = new ArrayList<>();
+
+        for (int i = 0; i < maps.size(); i++) {
+            deals.add(new Deal(
+                    String.valueOf(maps.get(i).get("number")),
+                    String.valueOf(maps.get(i).get("date")),
+                    String.valueOf(maps.get(i).get("time")),
+                    String.valueOf(maps.get(i).get("price")),
+                    String.valueOf(maps.get(i).get("quantity")),
+                    String.valueOf(maps.get(i).get("direction"))
+            ));
+        }
+
+
+        for (int i = 0; i < deals.size(); i++) {
+            dealService.addUser(deals.get(i));
+        }
+    }
+
+    public ArrayList<LinkedTreeMap> readFile(String fileName) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
 
-        while (reader.ready()) {
-            printDeal(addStringsToDeal(reader.readLine()));
+        ArrayList<LinkedTreeMap> deals = readJsonFromFile(reader.readLine());
 
-            try {
-                Thread.sleep(997);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        reader.close();
+
+        return deals;
+    }
+
+    private ArrayList<LinkedTreeMap> readJsonFromFile(String s) {
+        ArrayList<LinkedTreeMap> deals = new Gson().fromJson(s, ArrayList.class);
+
+        return deals;
     }
 
     private String[] readString(String s) throws IOException {
