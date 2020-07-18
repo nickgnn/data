@@ -23,16 +23,17 @@ public class StringReader {
         ArrayList<Deal> deals = new ArrayList<>();
 
         for (int i = 0; i < maps.size(); i++) {
-            deals.add(new Deal(
-                    String.valueOf(maps.get(i).get("number")),
-                    String.valueOf(maps.get(i).get("date")),
-                    String.valueOf(maps.get(i).get("time")),
-                    String.valueOf(maps.get(i).get("price")),
-                    String.valueOf(maps.get(i).get("quantity")),
-                    String.valueOf(maps.get(i).get("direction"))
-            ));
+            if (Integer.valueOf(String.valueOf(maps.get(i).get("quantity"))) < 100) {
+                deals.add(new Deal(
+                        String.valueOf(maps.get(i).get("number")),
+                        String.valueOf(maps.get(i).get("date")),
+                        String.valueOf(maps.get(i).get("time")),
+                        String.valueOf(maps.get(i).get("price")),
+                        String.valueOf(maps.get(i).get("quantity")),
+                        String.valueOf(maps.get(i).get("direction"))
+                ));
+            }
         }
-
 
         for (int i = 0; i < deals.size(); i++) {
             dealService.addUser(deals.get(i));
